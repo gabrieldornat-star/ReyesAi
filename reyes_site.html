@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reyes · Apprendre l'espagnol</title>
+<style>
+:root{--bg:#f7f8fc;--panel:#fff;--ink:#172033;--muted:#748096;--line:#e6e9f1;--blue:#4569e8;--blue2:#edf1ff;--gold:#f4c84a;--green:#239b74;--shadow:0 10px 30px #1b2a4a0b}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0}
+.app{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 8px}.brand img{width:48px;height:48px;object-fit:contain;border-radius:12px;background:#fff}.brand strong{font-size:21px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:12px}
+.newchat{background:var(--blue);color:white;padding:12px 14px;border-radius:12px;text-align:left;font-weight:700;box-shadow:0 5px 12px #4569e82b}.navlabel{color:#9aa3b4;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:1.2px;padding:0 10px}
+.navbtn{width:100%;text-align:left;background:transparent;padding:10px 12px;border-radius:10px;color:#58647a;display:flex;align-items:center;gap:10px}.navbtn.active,.navbtn:hover{background:var(--blue2);color:var(--blue)}.navbtn span{font-size:17px;width:22px;text-align:center}
+.sidebar-bottom{margin-top:auto;background:#fff9e8;border:1px solid #f5e7b4;padding:13px;border-radius:14px;font-size:12px;color:#78662b}.sidebar-bottom b{display:block;color:#4b421f;margin-bottom:4px}
+main{min-width:0;display:flex;flex-direction:column;height:100vh;max-height:100vh}
+.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:#ffffffc9;backdrop-filter:blur(12px)}
+.topbar h1{font-size:16px;margin:0}.level{font-size:12px;color:#52607a;background:#fff;border:1px solid var(--line);padding:7px 11px;border-radius:30px}
+.content{overflow:auto;flex:1;padding:28px clamp(16px,4vw,54px) 20px}.welcome{max-width:820px;margin:20px auto 24px}.eyebrow{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.welcome h2{font-size:clamp(28px,4vw,42px);line-height:1.12;margin:9px 0 12px;letter-spacing:-1.5px}.welcome h2 em{font-style:normal;color:var(--blue)}.welcome p{color:var(--muted);max-width:600px;margin:0}
+.quickgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}.quick{border:1px solid var(--line);background:#fff;padding:16px;border-radius:15px;text-align:left;box-shadow:var(--shadow);transition:.15s}.quick:hover{border-color:#b8c5ff;transform:translateY(-2px)}.quick .emoji{font-size:22px}.quick b{display:block;margin:8px 0 3px}.quick small{color:var(--muted)}
+.chat{max-width:820px;margin:0 auto}.message{display:flex;gap:11px;margin:20px 0;align-items:flex-start}.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-weight:900}.message.user{justify-content:flex-end}.message.user .bubble{background:var(--blue);color:#fff;border-radius:17px 17px 4px 17px}.message.user .avatar{order:2;background:#dce3ff}.bubble{max-width:min(690px,90%);padding:13px 16px;background:#fff;border:1px solid var(--line);border-radius:4px 17px 17px 17px;box-shadow:var(--shadow)}.bubble p{margin:0 0 8px}.bubble p:last-child{margin-bottom:0}.bubble .translation{color:var(--muted);font-size:13px}.wordchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.chip{background:#f0f3fb;color:#44516a;border-radius:8px;padding:5px 8px;font-size:12px}
+.composer-wrap{padding:12px clamp(16px,4vw,54px) 18px;background:linear-gradient(transparent,var(--bg) 18%)}.composer{max-width:820px;margin:auto;display:flex;align-items:flex-end;gap:10px;border:1px solid #dfe4ef;background:#fff;border-radius:18px;padding:10px 11px 10px 16px;box-shadow:0 8px 25px #1b2a4a0b}.composer textarea{resize:none;outline:0;border:0;flex:1;min-height:28px;max-height:120px;background:transparent;color:var(--ink)}.send{background:var(--blue);color:#fff;border-radius:11px;width:38px;height:38px;font-size:18px}.hint{text-align:center;font-size:11px;color:#9aa3b4;margin:8px}
+.toolview{max-width:820px;margin:0 auto}.toolhead{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px}.toolhead h2{margin:0;font-size:27px;letter-spacing:-.6px}.toolhead p{margin:5px 0;color:var(--muted)}.softbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;color:#52607a}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:var(--shadow)}.progress{height:6px;background:#eef1f7;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress div{height:100%;background:var(--blue);width:0;transition:width .2s}.question{font-size:22px;font-weight:750;margin:8px 0 18px}.answers{display:grid;gap:10px}.answer{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px;text-align:left;color:#33405a}.answer:hover{border-color:#9caeff;background:#f8f9ff}.answer.correct{border-color:#55bd99;background:#edfbf5}.answer.wrong{border-color:#f0a6a6;background:#fff2f2}.feedback{padding:12px;border-radius:10px;background:#f0f8f4;color:#277452;margin-top:14px}.flashcard{min-height:220px;display:grid;place-items:center;text-align:center;background:linear-gradient(140deg,#f0f3ff,#fff);border:1px solid #dfe5ff;border-radius:17px;padding:25px;cursor:pointer}.flashcard .big{font-size:32px;font-weight:800}.flashcard .sub{color:var(--muted);margin-top:12px}.cardactions{display:flex;gap:10px;justify-content:center;margin-top:15px}.empty{color:var(--muted);text-align:center;padding:35px 10px}.vocabrow{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.vocabrow:last-child{border:0}.vocabrow b{display:block}.vocabrow small{color:var(--muted)}.tag{font-size:11px;padding:4px 8px;background:#edf8f3;color:#27845f;border-radius:7px;height:max-content}
+@media(max-width:700px){.app{grid-template-columns:1fr}.sidebar{display:none}main{height:100dvh;max-height:100dvh}.topbar{padding:0 16px}.content{padding:20px 15px}.quickgrid{grid-template-columns:1fr}.quick{display:flex;gap:12px;align-items:center}.quick .emoji{font-size:25px}.quick b{margin:0 0 2px}.welcome{margin-top:8px}.welcome h2{font-size:31px}.composer-wrap{padding:10px 12px 14px}.toolhead h2{font-size:24px}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><img src="reyes_logo.png" alt="Logo dessiné de Reyes"><div><strong>Reyes</strong><small>Ton coach d'espagnol</small></div></div>
+  <button class="newchat" id="newChat">＋ Nouvelle discussion</button>
+  <div><div class="navlabel">Apprendre</div>
+    <button class="navbtn active" data-view="chat"><span>◉</span> Assistant Reyes</button>
+    <button class="navbtn" data-view="quiz"><span>▦</span> QCM personnalisé</button>
+    <button class="navbtn" data-view="cards"><span>▱</span> Cartes mémoire</button>
+    <button class="navbtn" data-view="vocab"><span>⌁</span> Mon vocabulaire <b id="vocabCount" style="margin-left:auto">0</b></button>
+  </div>
+  <div><div class="navlabel">Réviser au collège</div>
+    <button class="navbtn" data-prompt="Apprends-moi les salutations et les présentations en espagnol."><span>👋</span> Se présenter</button>
+    <button class="navbtn" data-prompt="Explique-moi les verbes ser, estar et tener avec des exemples simples."><span>✍</span> Verbes essentiels</button>
+    <button class="navbtn" data-prompt="Fais-moi réviser les nombres, les dates et l'heure en espagnol."><span>◷</span> Nombres et dates</button>
+    <button class="navbtn" data-prompt="Apprends-moi le vocabulaire de la famille, de l'école et des loisirs."><span>▤</span> Thèmes du collège</button>
+    <button class="navbtn" data-prompt="Explique-moi les noms, adjectifs et adverbes en espagnol avec des exemples."><span>✎</span> Noms, adjectifs, adverbes</button>
+    <button class="navbtn" data-prompt="Conjugue les verbes espagnols importants au présent avec des exemples."><span>↻</span> Conjugaison</button>
+    <button class="navbtn" data-prompt="Traduis cette phrase du français vers l'espagnol et explique les mots : "><span>⇄</span> Traduction</button>
+  </div>
+  <div class="sidebar-bottom"><b>✦ Petit conseil</b>Ajoute les nouveaux mots à ton vocabulaire, puis transforme-les en QCM ou en cartes mémoire.</div>
+</aside>
+<main>
+<header class="topbar"><h1 id="topTitle">Assistant Reyes</h1><span class="level">🇪🇸 Espagnol · Collège</span></header>
+<section class="content" id="content"></section>
+<div class="composer-wrap" id="composerWrap"><form class="composer" id="chatForm"><textarea id="userInput" rows="1" placeholder="Demande à Reyes : explique-moi ser et estar…"></textarea><button class="send" aria-label="Envoyer">↑</button></form><div class="hint">Reyes peut se tromper. Vérifie les règles importantes avec ton cours.</div></div>
+</main>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+let vocab=JSON.parse(localStorage.getItem('reyes_vocab')||'[]');
+let history=[];
+let view='chat', quizItems=[], qi=0, score=0, answered=false, cardIndex=0, showBack=false;
+const dictionary=[
+['hola','salut / bonjour'],['adiós','au revoir'],['buenos días','bonjour (le matin)'],['buenas tardes','bonjour / bon après-midi'],['buenas noches','bonsoir / bonne nuit'],['por favor','s’il te plaît / s’il vous plaît'],['gracias','merci'],['de nada','de rien'],['¿cómo te llamas?','comment tu t’appelles ?'],['me llamo…','je m’appelle…'],['¿qué tal?','ça va ?'],['muy bien','très bien'],['mal','mal'],['regular','comme ci comme ça'],['sí','oui'],['no','non'],['ser','être (identité, caractéristique)'],['estar','être (état, lieu)'],['tener','avoir'],['hacer','faire'],['ir','aller'],['hablar','parler'],['comer','manger'],['vivir','vivre / habiter'],['la familia','la famille'],['el padre','le père'],['la madre','la mère'],['el hermano','le frère'],['la hermana','la sœur'],['el colegio','le collège'],['el profesor','le professeur'],['la asignatura','la matière'],['el libro','le livre'],['el cuaderno','le cahier'],['la mochila','le sac à dos'],['la casa','la maison'],['el perro','le chien'],['el gato','le chat'],['rojo','rouge'],['azul','bleu'],['verde','vert'],['grande','grand'],['pequeño','petit'],['hoy','aujourd’hui'],['mañana','demain / matin'],['ayer','hier'],['uno','un'],['dos','deux'],['tres','trois'],['¿cuántos años tienes?','quel âge as-tu ?'],['tengo… años','j’ai … ans'],['me gusta','j’aime'],['no me gusta','je n’aime pas'],['porque','parce que'],['pero','mais'],['y','et'],['también','aussi'],['siempre','toujours'],['nunca','jamais'],['a la izquierda','à gauche'],['a la derecha','à droite'],['rápidamente','rapidement'],['lentamente','lentement'],['aquí','ici'],['allí','là-bas'],['bien','bien'],['bonito','joli'],['bonita','jolie'],['feliz','heureux / heureuse'],['triste','triste'],['rápido','rapide'],['rápida','rapide'],['la mesa','la table'],['el agua','l’eau'],['el tiempo','le temps'],['aprender','apprendre'],['estudiar','étudier'],['escribir','écrire'],['leer','lire'],['escuchar','écouter'],['ver','voir'],['jugar','jouer'],['la comida','la nourriture'],['el amigo','l’ami'],['la amiga','l’amie'],['chat','gato'],['un chat','un gato'],['un chien','un perro'],['le chat','el gato'],['le chien','el perro'],['bonjour','hola'],['merci','gracias']
+];
+function save(){localStorage.setItem('reyes_vocab',JSON.stringify(vocab));$('#vocabCount').textContent=vocab.length}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function setView(v){view=v;document.querySelectorAll('.navbtn[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v));$('#composerWrap').style.display=v==='chat'?'block':'none';$('#topTitle').textContent=({chat:'Assistant Reyes',quiz:'QCM personnalisé',cards:'Cartes mémoire',vocab:'Mon vocabulaire'})[v];render()}
+function render(){const c=$('#content');if(view==='chat')renderChat(c);if(view==='quiz')renderQuiz(c);if(view==='cards')renderCards(c);if(view==='vocab')renderVocab(c)}
+function renderChat(c){
+let start=`<div class="welcome"><div class="eyebrow">¡Vamos a aprender!</div><h2>L’espagnol, <em>à ton rythme.</em></h2><p>Pose une question à Reyes, demande une explication ou révise les mots de ton cours. Les mots que tu ajoutes pourront servir à fabriquer tes propres exercices.</p><div class="quickgrid">
+<button class="quick" data-prompt="Apprends-moi à me présenter en espagnol, niveau collège."><span class="emoji">👋</span><span><b>Me présenter</b><small>Nom, âge, goûts</small></span></button>
+<button class="quick" data-prompt="Explique ser et estar avec des exemples et un moyen de les différencier."><span class="emoji">🧩</span><span><b>Comprendre les verbes</b><small>Ser, estar, tener…</small></span></button>
+<button class="quick" data-prompt="Donne-moi 8 mots d'espagnol niveau collège à apprendre, avec traduction."><span class="emoji">🗂</span><span><b>Apprendre du vocabulaire</b><small>Des mots utiles</small></span></button></div></div>`;
+let msgs=history.map(m=>`<div class="message ${m.role==='user'?'user':''}">${m.role==='assistant'?'<div class="avatar">R</div>':''}<div class="bubble">${m.html}</div>${m.role==='user'?'<div class="avatar">🙂</div>':''}</div>`).join('');
+c.innerHTML=start+`<div class="chat">${msgs}</div>`;
+c.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>sendPrompt(b.dataset.prompt));
+}
+function replyFor(q){
+let s=q.toLowerCase(), out='';
+const conjugations={
+ ser:['soy','eres','es','somos','sois','son'],
+ estar:['estoy','estás','está','estamos','estáis','están'],
+ tener:['tengo','tienes','tiene','tenemos','tenéis','tienen'],
+ hablar:['hablo','hablas','habla','hablamos','habláis','hablan'],
+ comer:['como','comes','come','comemos','coméis','comen'],
+ vivir:['vivo','vives','vive','vivimos','vivís','viven'],
+ ir:['voy','vas','va','vamos','vais','van'],
+ hacer:['hago','haces','hace','hacemos','hacéis','hacen']
+};
+if(/\btradui|\btraduction|\btraduis|\bcomment (?:on )?dit|\bcomment dire|\btranslate|\btraducir/.test(s)){
+  let known=findWords(q);
+  // Prefer the actual requested term and avoid matching words that merely occur inside "espagnol".
+  const cleaned = q.replace(/comment (?:on )?dit|comment dire|traduis|traduire|traduction|translate|traducir|en espagnol|en français|s'il te plaît|stp/gi,' ').replace(/[«»“”"'?!.,:]/g,' ').replace(/\s+/g,' ').trim();
+  const normalizedClean = normalizeText(cleaned);
+  const exact = dictionary.filter(([w,t]) => {
+    const nw=normalizeText(w), nt=normalizeText(t);
+    return normalizedClean===nw || normalizedClean===nt;
+  });
+  if(exact.length) known=exact;
+  if(known.length){
+    out=`<p><b>Traduction / vocabulaire</b></p>`+known.map(([w,t])=>`<p><i>${esc(w)}</i> = <b>${esc(t)}</b></p>`).join('')+`<p>Tu peux ajouter les mots proposés à ton vocabulaire en appuyant sur leur bouton.</p>`;
+  } else {
+    out=`<p><b>Mode traduction</b></p><p>Je n'ai pas trouvé ce mot dans le dictionnaire intégré. Essaie une expression simple, par exemple : <i>Comment on dit chat en espagnol ?</i></p><p>Cette version n'est pas encore reliée à une véritable IA ou à un service de traduction : elle traduit les mots qu'elle connaît, mais pas encore n'importe quelle phrase.</p>`;
+  }
+}
+else if(/conjug|verbe|présent|presente/.test(s)){
+  let verb=Object.keys(conjugations).find(v=>new RegExp('\\b'+v+'\\b','i').test(s));
+  if(verb){
+    let pronouns=['yo','tú','él / ella / usted','nosotros/as','vosotros/as','ellos / ellas / ustedes'];
+    out=`<p><b>Conjugaison de <i>${verb}</i> au présent</b></p>`+pronouns.map((p,i)=>`<p>${p} → <b>${conjugations[verb][i]}</b></p>`).join('')+`<p>Exemple : <i>Yo ${conjugations[verb][0]}…</i></p>`;
+  } else {
+    out=`<p><b>Les verbes au présent</b></p><p>Verbes en <i>-AR</i>, comme <i>hablar</i> : <b>-o, -as, -a, -amos, -áis, -an</b>.</p><p>Verbes en <i>-ER</i>, comme <i>comer</i> : <b>-o, -es, -e, -emos, -éis, -en</b>.</p><p>Verbes en <i>-IR</i>, comme <i>vivir</i> : <b>-o, -es, -e, -imos, -ís, -en</b>.</p><p><i>Ser, estar, tener, ir</i> et <i>hacer</i> sont irréguliers : ils sont à apprendre séparément.</p>`;
+  }
+}
+else if(/adverbe|adjectif|nom commun|noms, adjectifs|grammaire/.test(s)){
+ out=`<p><b>Les classes de mots en espagnol</b></p><p>• <b>Nom</b> : personne, lieu ou chose. <i>la casa</i> = la maison.</p><p>• <b>Adjectif</b> : décrit un nom et s'accorde souvent en genre et en nombre. <i>un perro pequeño</i> = un petit chien ; <i>una casa pequeña</i> = une petite maison.</p><p>• <b>Adverbe</b> : précise comment, quand ou où. <i>rápidamente</i> = rapidement ; <i>hoy</i> = aujourd'hui ; <i>aquí</i> = ici.</p><p>• <b>Verbe</b> : action ou état. <i>hablar</i> = parler ; <i>ser</i> = être.</p><p>• <b>Article</b> : accompagne le nom. <i>el / la</i> = le / la ; <i>los / las</i> = les.</p>`;
+}
+else if(/ser|estar/.test(s)) out=`<p><b>Ser ou estar ?</b> Les deux veulent dire « être », mais ils ne s’emploient pas exactement pareil.</p><p>• <b>SER</b> : identité ou caractéristique. <i>Soy francés.</i> = Je suis français.</p><p>• <b>ESTAR</b> : état ou lieu. <i>Estoy cansado.</i> = Je suis fatigué. <i>Estoy en casa.</i> = Je suis à la maison.</p><p>Astuce : ser décrit souvent qui/ce que c’est ; estar décrit souvent comment ou où c’est.</p>`;
+else if(/présent|present|présenter|presentarme|salutation|bonjour/.test(s)) out=`<p><b>Se présenter en espagnol</b></p><p>• <i>¡Hola!</i> = Salut !</p><p>• <i>Me llamo …</i> = Je m’appelle…</p><p>• <i>Tengo … años.</i> = J’ai … ans.</p><p>• <i>Soy francés/francesa.</i> = Je suis français/française.</p><p>• <i>Me gusta …</i> = J’aime…</p>`;
+else if(/nombre|date|heure|número|numero/.test(s)) out=`<p><b>Les nombres de base</b></p><p>1 <i>uno</i> · 2 <i>dos</i> · 3 <i>tres</i> · 4 <i>cuatro</i> · 5 <i>cinco</i> · 6 <i>seis</i> · 7 <i>siete</i> · 8 <i>ocho</i> · 9 <i>nueve</i> · 10 <i>diez</i>.</p><p>Pour demander l’âge : <i>¿Cuántos años tienes?</i> Pour répondre : <i>Tengo trece años.</i></p>`;
+else if(/famille|familia|école|colegio|loisir/.test(s)) out=`<p><b>Vocabulaire à connaître</b></p><p>• <i>la familia</i> = la famille</p><p>• <i>el padre / la madre</i> = le père / la mère</p><p>• <i>el hermano / la hermana</i> = le frère / la sœur</p><p>• <i>el colegio</i> = le collège</p><p>• <i>el profesor</i> = le professeur</p><p>• <i>la asignatura</i> = la matière</p>`;
+else if(/qcm|quiz|question/.test(s)) out=`<p>Ouvre <b>QCM personnalisé</b> dans le menu pour réviser les mots enregistrés. Ajoute les mots vus en cours pour personnaliser tes exercices.</p>`;
+else if(/carte|mémoire|flash/.test(s)) out=`<p>Les cartes mémoire affichent un mot espagnol puis sa traduction. Ajoute des mots à ton vocabulaire et ouvre <b>Cartes mémoire</b> pour réviser.</p>`;
+else out=`<p>Je peux t’aider à travailler le vocabulaire, les verbes, les noms, les adjectifs, les adverbes, les articles, les traductions et la construction de phrases.</p><p>Essaie une demande précise : <i>Conjugue tener au présent</i>, <i>Explique-moi les adverbes</i> ou <i>Traduis “la maison”</i>.</p><p><i>À noter :</i> le prototype n'est pas encore relié à une véritable IA. Il propose des explications préparées et ne peut pas comprendre toutes les phrases ni traduire librement n'importe quel texte.</p>`;
+return out;
+}
+function normalizeText(s){
+  return String(s).toLocaleLowerCase('fr').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:«»"'()]/g,' ').replace(/\s+/g,' ').trim();
+}
+function findWords(q){
+  const query = normalizeText(q);
+  const words = new Set(query.split(/\s+/).filter(Boolean));
+  return dictionary.filter(([w,t])=>{
+    const nw = normalizeText(w), nt = normalizeText(t);
+    // Match complete words or complete multi-word expressions only.
+    const wordMatch = words.has(nw) || nw.split(' ').length > 1 && (' '+query+' ').includes(' '+nw+' ');
+    const translationMatch = words.has(nt) || nt.split(' ').length > 1 && (' '+query+' ').includes(' '+nt+' ');
+    return wordMatch || translationMatch;
+  }).sort((a,b)=>Math.max(normalizeText(b[0]).length,normalizeText(b[1]).length)-Math.max(normalizeText(a[0]).length,normalizeText(a[1]).length)).slice(0,8);
+}
+function addWord(w,t){if(!vocab.some(x=>x.word.toLowerCase()===w.toLowerCase())){vocab.push({word:w,translation:t,source:'Reyes'});save()}}
+function sendPrompt(q){if(!q.trim())return;history.push({role:'user',html:esc(q)});let answer=replyFor(q);let matches=findWords(q);if(matches.length){answer+=`<div class="wordchips">${matches.map(([w,t])=>`<button class="chip" data-add="${esc(w)}" data-trans="${esc(t)}">＋ ${esc(w)}</button>`).join('')}</div>`}
+history.push({role:'assistant',html:answer});setView('chat');$('#content').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{addWord(b.dataset.add,b.dataset.trans);b.textContent='✓ '+b.dataset.add;b.disabled=true});}
+function renderQuiz(c){
+if(!quizItems.length){let pool=vocab.length?vocab:dictionary.slice(0,12).map(([word,translation])=>({word,translation}));quizItems=pool.map(x=>({word:x.word,translation:x.translation,options:[]})).sort(()=>Math.random()-.5);qi=0;score=0;answered=false}
+if(qi>=quizItems.length){c.innerHTML=`<div class="toolview"><div class="toolhead"><div><h2>QCM terminé !</h2><p>Tu as terminé cette série de révision.</p></div></div><div class="panel empty"><div style="font-size:40px">🎯</div><h2>${score} / ${quizItems.length}</h2><p>${score===quizItems.length?'Parfait, tout est juste !':'Chaque erreur est une occasion de mieux retenir les mots.'}</p><button class="newchat" onclick="quizItems=[];setView('quiz')">Recommencer</button></div></div>`;return}
+let item=quizItems[qi],pool=vocab.length?vocab:dictionary.map(([word,translation])=>({word,translation}));let distract=pool.filter(x=>x.word!==item.word).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.translation);let opts=[item.translation,...distract].sort(()=>Math.random()-.5);item.options=opts;
+c.innerHTML=`<div class="toolview"><div class="toolhead"><div><h2>QCM personnalisé</h2><p>Choisis la bonne traduction.</p></div><button class="softbtn" id="resetQuiz">↻ Recommencer</button></div><div class="panel"><div style="display:flex;justify-content:space-between;color:var(--muted);font-size:13px"><span>Question ${qi+1} sur ${quizItems.length}</span><span>Score : ${score}</span></div><div class="progress"><div style="width:${qi/quizItems.length*100}%"></div></div><div class="question">${esc(item.word)}</div><div class="answers">${opts.map(o=>`<button class="answer" data-answer="${esc(o)}">${esc(o)}</button>`).join('')}</div><div id="feedback"></div></div></div>`;
+$('#resetQuiz').onclick=()=>{quizItems=[];setView('quiz')};c.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;let ok=b.dataset.answer===item.translation;if(ok)score++;b.classList.add(ok?'correct':'wrong');c.querySelectorAll('[data-answer]').forEach(x=>{if(x.dataset.answer===item.translation)x.classList.add('correct');x.disabled=true});$('#feedback').innerHTML=`<div class="feedback">${ok?'Bien joué !':'Pas tout à fait.'} <b>${esc(item.word)}</b> = ${esc(item.translation)} <button class="softbtn" id="nextQ" style="float:right">${qi===quizItems.length-1?'Résultat':'Suivant →'}</button></div>`;$('#nextQ').onclick=()=>{qi++;answered=false;render()}})}
+function renderCards(c){let pool=vocab.length?vocab:dictionary.slice(0,12).map(([word,translation])=>({word,translation}));if(cardIndex>=pool.length)cardIndex=0;let x=pool[cardIndex];c.innerHTML=`<div class="toolview"><div class="toolhead"><div><h2>Cartes mémoire</h2><p>${vocab.length?vocab.length+' mots enregistrés':'Exemples de départ · ajoute tes propres mots'}</p></div><span class="level">${cardIndex+1} / ${pool.length}</span></div><div class="flashcard" id="flipCard"><div><div class="eyebrow">${showBack?'Traduction':'Espagnol'}</div><div class="big">${esc(showBack?x.translation:x.word)}</div><div class="sub">${showBack?'Clique pour revoir le mot':'Clique sur la carte pour révéler la réponse'}</div></div></div><div class="cardactions"><button class="softbtn" id="prev">← Précédente</button><button class="newchat" id="flip">Retourner la carte</button><button class="softbtn" id="next">Suivante →</button></div></div>`;$('#flipCard').onclick=$('#flip').onclick=()=>{showBack=!showBack;render()};$('#prev').onclick=()=>{cardIndex=(cardIndex-1+pool.length)%pool.length;showBack=false;render()};$('#next').onclick=()=>{cardIndex=(cardIndex+1)%pool.length;showBack=false;render()}}
+function renderVocab(c){c.innerHTML=`<div class="toolview"><div class="toolhead"><div><h2>Mon vocabulaire</h2><p>Les mots que tu veux retenir pour tes contrôles.</p></div><button class="softbtn" id="addManual">＋ Ajouter un mot</button></div><div class="panel" id="vocabPanel">${vocab.length?vocab.map((x,i)=>`<div class="vocabrow"><div><b>${esc(x.word)}</b><small>${esc(x.translation)}</small></div><button class="softbtn" data-delete="${i}" aria-label="Supprimer">×</button></div>`).join(''):'<div class="empty"><div style="font-size:34px">📚</div><b>Ton vocabulaire est vide.</b><p>Ajoute des mots de ton cours pour créer des révisions personnalisées.</p></div>'}</div></div>`;$('#addManual').onclick=()=>{let w=prompt('Mot ou expression en espagnol :');if(!w||!w.trim())return;let t=prompt('Traduction en français :');if(!t||!t.trim())return;addWord(w.trim(),t.trim());render()};c.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{vocab.splice(+b.dataset.delete,1);save();render()})}
+$('#chatForm').addEventListener('submit',e=>{e.preventDefault();let q=$('#userInput').value.trim();if(!q)return;$('#userInput').value='';sendPrompt(q)});
+$('#userInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#chatForm').requestSubmit()}});
+document.querySelectorAll('.navbtn[data-view]').forEach(b=>b.onclick=()=>{if(b.dataset.view==='quiz'){quizItems=[];qi=0;answered=false}setView(b.dataset.view)});
+document.querySelectorAll('.navbtn[data-prompt]').forEach(b=>b.onclick=()=>sendPrompt(b.dataset.prompt));
+$('#newChat').onclick=()=>{history=[];quizItems=[];qi=0;setView('chat')};
+save();render();
+</script>
+</body></html>
